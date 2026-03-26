@@ -1,1 +1,85 @@
+def saudacao(nome):
+    print(f"\nOlá {nome}! Seja bem-vindo(a) ao Python! 🐍")
 
+
+def calcular_media(notas):
+    media = sum(notas) / len(notas)
+    print(f"Notas: {notas}")
+    print(f"Média: {media:.2f}")
+    
+    if media >= 7:
+        print("✅ APROVADO")
+    elif media >= 5:
+        print("⚠️ RECUPERAÇÃO")
+    else:
+        print("❌ REPROVADO")
+    
+    return media
+
+
+def maior_menor(lista):
+    print(f"Lista: {lista}")
+    print(f"Maior: {max(lista)} | Menor: {min(lista)}")
+    return max(lista), min(lista)
+
+
+def validar_login(usuario, senha, usuarios):
+    if usuario in usuarios and usuarios[usuario] == senha:
+        print("✅ Login realizado com sucesso!")
+        return True
+    print("❌ Usuário ou senha inválidos!")
+    return False
+
+
+def main():
+    usuarios = {"admin": "123", "joao": "joao123", "maria": "maria456"}
+    
+    while True:
+        print("\n" + "="*40)
+        print("1 - Saudação")
+        print("2 - Média do Aluno")
+        print("3 - Maior e Menor")
+        print("4 - Login")
+        print("5 - Sair")
+        print("="*40)
+        
+        opcao = input("Escolha: ")
+        
+        if opcao == "1":
+            nome = input("Digite seu nome: ")
+            saudacao(nome)
+        
+        elif opcao == "2":
+            notas = []
+            for i in range(3):
+                nota = float(input(f"{i+1}ª nota: "))
+                notas.append(nota)
+            calcular_media(notas)
+        
+        elif opcao == "3":
+            numeros = input("Digite números separados por espaço: ").split()
+            numeros = [float(n) for n in numeros]
+            maior_menor(numeros)
+        
+        elif opcao == "4":
+            tentativas = 3
+            while tentativas > 0:
+                user = input("Usuário: ")
+                senha = input("Senha: ")
+                if validar_login(user, senha, usuarios):
+                    break
+                tentativas -= 1
+                print(f"Tentativas restantes: {tentativas}")
+        
+        elif opcao == "5":
+            print("Até mais!")
+            break
+        
+        else:
+            print("Opção inválida!")
+        
+        input("\nPressione Enter para continuar...")
+
+
+if __name__ == "__main__":
+    main()
