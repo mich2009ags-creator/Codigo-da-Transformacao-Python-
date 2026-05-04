@@ -1,1 +1,77 @@
+# 1️⃣ Calculadora com tratamento de divisão por zero
 
+def calculadora():
+    try:
+        num1 = float(input("Digite o primeiro número: "))
+        num2 = float(input("Digite o segundo número: "))
+        operacao = input("Digite a operação (+, -, *, /): ")
+
+        if operacao == "+":
+            print("Resultado:", num1 + num2)
+        elif operacao == "-":
+            print("Resultado:", num1 - num2)
+        elif operacao == "*":
+            print("Resultado:", num1 * num2)
+        elif operacao == "/":
+            print("Resultado:", num1 / num2)  # pode dar erro aqui
+        else:
+            print("Operação inválida!")
+
+    except ZeroDivisionError:
+        print("Erro: divisão por zero não é permitida!")
+    except ValueError:
+        print("Erro: digite apenas números válidos!")
+
+
+# 2️⃣ Exceção personalizada (Saldo insuficiente)
+
+class SaldoInsuficienteError(Exception):
+    pass
+
+
+class ContaBancaria:
+    def __init__(self, saldo):
+        self.saldo = saldo
+
+    def sacar(self, valor):
+        if valor > self.saldo:
+            raise SaldoInsuficienteError("Saldo insuficiente para saque!")
+        self.saldo -= valor
+        print(f"Saque realizado! Saldo atual: R${self.saldo}")
+
+
+def testar_banco():
+    conta = ContaBancaria(100)
+
+    try:
+        valor = float(input("\nDigite o valor para saque: "))
+        conta.sacar(valor)
+    except SaldoInsuficienteError as e:
+        print("Erro:", e)
+    except ValueError:
+        print("Erro: valor inválido!")
+
+
+# 3️⃣ Validação de entrada (idade positiva)
+
+def validar_idade():
+    try:
+        idade = int(input("\nDigite sua idade: "))
+        if idade <= 0:
+            raise ValueError("A idade deve ser um número positivo!")
+        print(f"Idade válida: {idade}")
+    except ValueError as e:
+        print("Erro:", e)
+
+
+# 🚀 Execução dos testes
+print("=== CALCULADORA ===")
+calculadora()
+
+print("\n=== BANCO ===")
+testar_banco()
+
+print("\n=== VALIDAÇÃO DE IDADE ===")
+validar_idade()
+
+depois irei commitar eles separados para organizar!
