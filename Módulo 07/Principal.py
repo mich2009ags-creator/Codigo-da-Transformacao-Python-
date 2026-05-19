@@ -1,12 +1,12 @@
-principal.py
+"principal.py"
     
-    from utilidades import soma, subtracao, potencia
+"from utilidades import soma, subtracao, potencia"
 
-print("Soma:", soma(10, 5))
-print("Subtração:", subtracao(10, 5))
-print("Potência:", potencia(2, 3))
+print("Soma:", "soma"(10 + 5))
+print("Subtração:", "subtracao"(10 - 5))
+print("Potência:", "potencia"(2 ** 3))
 
-datas.py
+"datas.py"
 from datetime import datetime
 
 agora = datetime.now()
