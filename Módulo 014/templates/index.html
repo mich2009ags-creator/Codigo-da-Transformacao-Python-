@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Produtos</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial; background: #f4f4f4; padding: 20px; }
+        .container { max-width: 1200px; margin: auto; background: white; padding: 20px; border-radius: 10px; }
+        h1 { color: #333; margin-bottom: 20px; }
+        .btn { display: inline-block; padding: 10px 15px; background: #007bff; color: white; text-decoration: none; border-radius: 5px; margin: 10px 0; }
+        .btn-danger { background: #dc3545; }
+        .btn-warning { background: #ffc107; color: #333; }
+        .busca { margin: 20px 0; display: flex; gap: 10px; }
+        .busca input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        .busca button { padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #007bff; color: white; }
+        tr:hover { background: #f5f5f5; }
+        .acoes a { margin-right: 10px; text-decoration: none; padding: 5px 10px; border-radius: 3px; font-size: 12px; }
+        .sem-produtos { text-align: center; padding: 40px; color: #999; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📦 Controle de Produtos</h1>
+        
+        <a href="/cadastrar/" class="btn">➕ Novo Produto</a>
+        
+        <form class="busca" method="get">
+            <input type="text" name="busca" placeholder="🔍 Buscar produto..." value="{{ busca }}">
+            <button type="submit">Buscar</button>
+            {% if busca %}<a href="/" class="btn" style="background:#6c757d">Limpar</a>{% endif %}
+        </form>
+        
+        {% if produtos %}
+        <table>
+            <thead>
+                <tr><th>ID</th><th>Produto</th><th>Descrição</th><th>Preço</th><th>Qtd</th><th>Total</th><th>Ações</th></tr>
+            </thead>
+            <tbody>
+                {% for p in produtos %}
+                <tr>
+                    <td>{{ p.id }}</td>
+                    <td><strong>{{ p.nome }}</strong></td>
+                    <td>{{ p.descricao|truncatechars:30 }}</td>
+                    <td>R$ {{ p.preco }}</td>
+                    <td>{{ p.quantidade }}</td>
+                    <td>R$ {{ p.preco|floatformat:2|add:p.quantidade }}</td>
+                    <td class="acoes">
+                        <a href="/editar/{{ p.id }}/" class="btn-warning">✏️</a>
+                        <a href="/excluir/{{ p.id }}/" class="btn-danger" onclick="return confirm('Tem certeza?')">🗑️</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="sem-produtos">
+            <p>📭 Nenhum produto cadastrado.</p>
+            <a href="/cadastrar/" class="btn">Cadastrar primeiro produto</a>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>>

@@ -1,1 +1,7 @@
+# Criar projeto
+django-admin startproject meuprojeto
+cd meuprojeto
 
+# Rodar o servidor (pronto, sem precisar criar app separado)
+python manage.py migrate
+python manage.py runserver
